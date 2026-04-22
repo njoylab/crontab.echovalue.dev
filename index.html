@@ -22,12 +22,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
     />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="icon" href="/favicon.ico" />
-    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="echoValue" />
     <meta property="og:url" content="https://crontab.echovalue.dev/" />
@@ -36,7 +31,10 @@
       property="og:description"
       content="Parse cron expressions in the browser, explain schedules in plain language, and preview the next runs."
     />
-    <meta property="og:image" content="https://www.njoylab.com/images/echovalue-api.webp" />
+    <meta property="og:image" content="https://crontab.echovalue.dev/og-image.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://crontab.echovalue.dev/" />
     <meta property="twitter:title" content="Cron Expression Parser and Explainer | echoValue" />
@@ -44,7 +42,7 @@
       property="twitter:description"
       content="Parse cron expressions in the browser, explain schedules in plain language, and preview the next runs."
     />
-    <meta property="twitter:image" content="https://www.njoylab.com/images/echovalue-api.webp" />
+    <meta property="twitter:image" content="https://crontab.echovalue.dev/og-image.svg" />
     <link rel="stylesheet" href="./styles.css" />
     <script type="application/ld+json">
       {
@@ -139,10 +137,18 @@
         <section class="workspace-grid">
           <div class="editor-column">
             <label class="editor-label" for="cron-input">Cron expression</label>
-            <input id="cron-input" type="text" spellcheck="false" value="*/15 * * * *" />
+            <div class="input-row">
+              <input id="cron-input" type="text" spellcheck="false" value="*/15 * * * *" />
+              <button class="ghost-link copy-button" id="copy-input" type="button">Copy</button>
+            </div>
             <p class="editor-footnote">
-              Format: <code>minute hour day month weekday</code> or shortcuts like
-              <code>@daily</code>.
+              Format:
+              <button class="field-chip" type="button" data-field="minute">minute</button>
+              <button class="field-chip" type="button" data-field="hour">hour</button>
+              <button class="field-chip" type="button" data-field="dayOfMonth">day</button>
+              <button class="field-chip" type="button" data-field="month">month</button>
+              <button class="field-chip" type="button" data-field="weekday">weekday</button>
+              or shortcuts like <code>@daily</code>.
             </p>
             <div class="example-block">
               <p class="section-label">Examples</p>
@@ -192,6 +198,15 @@
           </div>
         </section>
       </main>
+      <dialog class="field-dialog" id="field-dialog">
+        <div class="field-dialog-head">
+          <p class="section-label" id="field-dialog-label">Field</p>
+          <button class="dialog-close" id="close-field-dialog" type="button" aria-label="Close dialog">Close</button>
+        </div>
+        <h2 id="field-dialog-title">Minute</h2>
+        <p class="field-dialog-copy" id="field-dialog-copy"></p>
+        <div class="field-dialog-body" id="field-dialog-body"></div>
+      </dialog>
       <footer class="site-footer">
         <span>Built by <a href="https://njoylab.com" class="footer-brand" target="_blank" rel="noopener noreferrer">nJoyLab.com</a></span>
         <span class="footer-sep">·</span>

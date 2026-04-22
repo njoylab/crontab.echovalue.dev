@@ -211,6 +211,13 @@ code,
   font-size: 0.86rem;
 }
 
+.input-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  align-items: center;
+}
+
 input,
 .inspector-block,
 .analysis-card,
@@ -228,6 +235,10 @@ input {
   background: var(--color-surface-muted);
 }
 
+.copy-button {
+  white-space: nowrap;
+}
+
 input:focus {
   outline: 2px solid rgba(10, 132, 255, 0.32);
   outline-offset: 3px;
@@ -236,6 +247,20 @@ input:focus {
 .editor-footnote {
   font-size: 0.84rem;
   margin: 0.75rem 0 0;
+}
+
+.field-chip {
+  border: 0;
+  background: transparent;
+  color: var(--color-accent);
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+  font-family: var(--font-mono);
+}
+
+.field-chip:hover {
+  text-decoration: underline;
 }
 
 .inspector-block {
@@ -325,6 +350,61 @@ input:focus {
   padding: 1rem 0.2rem 0.2rem;
 }
 
+.field-dialog {
+  width: min(560px, calc(100vw - 2rem));
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  padding: 1rem;
+}
+
+.field-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.72);
+}
+
+.field-dialog-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: start;
+}
+
+.field-dialog h2 {
+  margin: 0.4rem 0 0;
+  letter-spacing: -0.04em;
+}
+
+.field-dialog-copy {
+  margin: 0.75rem 0 0;
+  color: var(--color-text-secondary);
+}
+
+.field-dialog-body {
+  margin-top: 1rem;
+  color: var(--color-text-secondary);
+  display: grid;
+  gap: 0.75rem;
+}
+
+.field-dialog-body p,
+.field-dialog-body ul {
+  margin: 0;
+}
+
+.field-dialog-body ul {
+  padding-left: 1.2rem;
+}
+
+.dialog-close {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-secondary);
+  padding: 0.45rem 0.7rem;
+  cursor: pointer;
+}
+
 .terms-page {
   padding-bottom: 2rem;
 }
@@ -407,6 +487,10 @@ input:focus {
     flex-direction: column;
     align-items: start;
     gap: 0.9rem;
+  }
+
+  .input-row {
+    grid-template-columns: 1fr;
   }
 
   #load-sample {

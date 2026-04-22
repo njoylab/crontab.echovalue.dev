@@ -2,6 +2,14 @@ const input = document.querySelector("#cron-input");
 const analysisList = document.querySelector("#analysis-list");
 const sampleButton = document.querySelector("#load-sample");
 const exampleButtons = document.querySelectorAll(".example-chip");
+const copyButton = document.querySelector("#copy-input");
+const fieldButtons = document.querySelectorAll(".field-chip");
+const fieldDialog = document.querySelector("#field-dialog");
+const closeFieldDialogButton = document.querySelector("#close-field-dialog");
+const fieldDialogLabel = document.querySelector("#field-dialog-label");
+const fieldDialogTitle = document.querySelector("#field-dialog-title");
+const fieldDialogCopy = document.querySelector("#field-dialog-copy");
+const fieldDialogBody = document.querySelector("#field-dialog-body");
 
 const SAMPLE_EXPRESSION = "*/15 * * * *";
 
@@ -53,6 +61,76 @@ const MACROS = {
   "@daily": "0 0 * * *",
   "@midnight": "0 0 * * *",
   "@hourly": "0 * * * *",
+};
+
+const FIELD_HELP = {
+  minute: {
+    label: "Minute",
+    copy: "Accepted values: 0-59",
+    html: `
+      <p>Controls the minute within the hour.</p>
+      <ul>
+        <li><code>*</code> every minute</li>
+        <li><code>0</code> exactly at minute 0</li>
+        <li><code>*/15</code> every 15 minutes</li>
+        <li><code>5,20,35,50</code> specific minutes</li>
+        <li><code>10-30</code> a minute range</li>
+      </ul>
+    `,
+  },
+  hour: {
+    label: "Hour",
+    copy: "Accepted values: 0-23",
+    html: `
+      <p>Controls the hour of the day in 24-hour format.</p>
+      <ul>
+        <li><code>*</code> every hour</li>
+        <li><code>0</code> midnight</li>
+        <li><code>9</code> 09:00</li>
+        <li><code>*/2</code> every 2 hours</li>
+        <li><code>9-17</code> business-hour range</li>
+      </ul>
+    `,
+  },
+  dayOfMonth: {
+    label: "Day of month",
+    copy: "Accepted values: 1-31",
+    html: `
+      <p>Controls the day number within the month.</p>
+      <ul>
+        <li><code>*</code> every day of the month</li>
+        <li><code>1</code> first day of the month</li>
+        <li><code>1,15</code> first and fifteenth</li>
+        <li><code>1-7</code> first week of the month</li>
+      </ul>
+    `,
+  },
+  month: {
+    label: "Month",
+    copy: "Accepted values: 1-12 or JAN-DEC",
+    html: `
+      <p>Controls the month of the year.</p>
+      <ul>
+        <li><code>*</code> every month</li>
+        <li><code>1</code> January</li>
+        <li><code>JAN,MAR,JUN</code> specific named months</li>
+        <li><code>JAN-MAR</code> a month range</li>
+      </ul>
+    `,
+  },
+  weekday: {
+    label: "Weekday",
+    copy: "Accepted values: 0-7 or SUN-SAT, where 0 and 7 are Sunday",
+    html: `
+      <p>Controls the day of the week.</p>
+      <ul>
+        <li><code>*</code> every weekday value</li>
+        <li><code>1</code> Monday</li>
+        <li><code>MON-FRI</code> weekdays</li>
+        <li><code>1,3,5</code> Monday, Wednesday, Friday</li>
+      </ul>
+    `,
+  },
 };
 
 function debounce(fn, wait) {
@@ -430,9 +508,39 @@ function escapeHtml(text) {
     .replaceAll("'", "&#39;");
 }
 
+async function copyInputValue() {
+  try {
+    await navigator.clipboard.writeText(input.value);
+    const original = copyButton.textContent;
+    copyButton.textContent = "Copied";
+    window.setTimeout(() => {
+      copyButton.textContent = original;
+    }, 1200);
+  } catch {
+    copyButton.textContent = "Copy failed";
+    window.setTimeout(() => {
+      copyButton.textContent = "Copy";
+    }, 1200);
+  }
+}
+
+function openFieldDialog(fieldName) {
+  const config = FIELD_HELP[fieldName];
+  if (!config) {
+    return;
+  }
+
+  fieldDialogLabel.textContent = "Field";
+  fieldDialogTitle.textContent = config.label;
+  fieldDialogCopy.textContent = config.copy;
+  fieldDialogBody.innerHTML = config.html;
+  fieldDialog.showModal();
+}
+
 const debouncedRender = debounce(render, 120);
 
 input.addEventListener("input", debouncedRender);
+copyButton.addEventListener("click", copyInputValue);
 
 sampleButton.addEventListener("click", () => {
   input.value = SAMPLE_EXPRESSION;
@@ -444,6 +552,29 @@ exampleButtons.forEach((button) => {
     input.value = button.dataset.example || "";
     render();
   });
+});
+
+fieldButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    openFieldDialog(button.dataset.field || "");
+  });
+});
+
+closeFieldDialogButton.addEventListener("click", () => {
+  fieldDialog.close();
+});
+
+fieldDialog.addEventListener("click", (event) => {
+  const bounds = fieldDialog.getBoundingClientRect();
+  const clickedOutside =
+    event.clientX < bounds.left ||
+    event.clientX > bounds.right ||
+    event.clientY < bounds.top ||
+    event.clientY > bounds.bottom;
+
+  if (clickedOutside) {
+    fieldDialog.close();
+  }
 });
 
 render();
