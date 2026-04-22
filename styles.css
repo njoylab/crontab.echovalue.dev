@@ -1,0 +1,365 @@
+:root {
+  --color-bg: #0a0a0a;
+  --color-surface: #141414;
+  --color-surface-muted: #111111;
+  --color-border: #262626;
+  --color-border-hover: #3a3a3c;
+  --color-text-primary: #f5f5f7;
+  --color-text-secondary: #a1a1a6;
+  --color-text-muted: #6e6e73;
+  --color-accent: #0a84ff;
+  --color-success: #30d158;
+  --color-error: #ff453a;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", "Monaco", monospace;
+  --transition-fast: 0.15s ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: rgba(10, 132, 255, 0.24);
+  color: var(--color-text-primary);
+}
+
+button,
+a,
+input {
+  font: inherit;
+}
+
+code,
+.brand-lockup,
+.section-label,
+.summary-label,
+.status-label,
+.line-number,
+.ghost-link,
+.example-chip,
+.cron-expression {
+  font-family: var(--font-mono);
+}
+
+.page-shell {
+  min-height: 100vh;
+}
+
+.workspace {
+  width: min(1040px, calc(100vw - 3rem));
+  margin: 0 auto;
+  padding: 1rem 0 3rem;
+}
+
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.brand-subtitle,
+.editor-footnote,
+.next-run,
+.analysis-empty,
+.env-card,
+.line-number,
+.cron-expression,
+.editor-label {
+  color: var(--color-text-secondary);
+}
+
+.brand-subtitle {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+}
+
+.section-label,
+.status-label {
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+}
+
+.workspace-head h1,
+.inspector-heading h2,
+.analysis-card h4 {
+  margin: 0;
+  letter-spacing: -0.04em;
+}
+
+.ghost-link,
+.example-chip {
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.ghost-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 0.95rem;
+}
+
+.ghost-link {
+  background: transparent;
+  color: var(--color-text-secondary);
+}
+
+#load-sample {
+  display: none;
+}
+
+.ghost-link:hover,
+.example-chip:hover {
+  color: var(--color-text-primary);
+  border-color: var(--color-border-hover);
+}
+
+.ghost-link:hover,
+.example-chip:hover {
+  transform: translateY(-1px);
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 0 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #171717;
+}
+
+.workspace-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  align-items: end;
+  margin-bottom: 1rem;
+}
+
+.workspace-head h1 {
+  max-width: 12ch;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.05;
+}
+
+.example-block {
+  margin-top: 1rem;
+}
+
+.example-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  justify-content: flex-start;
+}
+
+.example-chip {
+  cursor: pointer;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-secondary);
+  padding: 0.66rem 0.86rem;
+}
+
+.workspace-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.03fr) minmax(320px, 0.97fr);
+  gap: 1rem;
+}
+
+.editor-column,
+.inspector-column {
+  min-width: 0;
+}
+
+.editor-label {
+  display: inline-block;
+  margin-bottom: 0.65rem;
+  font-size: 0.86rem;
+}
+
+input,
+.inspector-block,
+.analysis-card,
+.env-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+input {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.1rem;
+  color: var(--color-text-primary);
+  line-height: 1.4;
+  background: var(--color-surface-muted);
+}
+
+input:focus {
+  outline: 2px solid rgba(10, 132, 255, 0.32);
+  outline-offset: 3px;
+}
+
+.editor-footnote {
+  font-size: 0.84rem;
+  margin: 0.75rem 0 0;
+}
+
+.inspector-block {
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+}
+
+.inspector-heading {
+  margin-bottom: 0.9rem;
+}
+
+.inspector-heading h2 {
+  font-size: 1.8rem;
+}
+
+.analysis-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.analysis-card,
+.env-card {
+  border-radius: var(--radius-md);
+  padding: 0.95rem;
+}
+
+.analysis-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: start;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-radius: 999px;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.status-pill.valid {
+  color: var(--color-success);
+  background: rgba(48, 209, 88, 0.08);
+}
+
+.status-pill.invalid {
+  color: var(--color-error);
+  background: rgba(255, 69, 58, 0.08);
+}
+
+.cron-expression {
+  margin: 0.8rem 0 0;
+  font-size: 0.82rem;
+}
+
+.analysis-card h4 {
+  margin: 0.75rem 0 0;
+  font-size: 1.3rem;
+}
+
+.explanation {
+  margin: 0.7rem 0 0;
+  color: var(--color-text-secondary);
+}
+
+.runs-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.85rem;
+}
+
+.next-run {
+  display: inline-flex;
+  padding: 0.4rem 0.56rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  font-size: 0.76rem;
+}
+
+.analysis-empty {
+  padding: 1rem 0.2rem 0.2rem;
+}
+
+@media (max-width: 960px) {
+  .workspace-grid,
+  .workspace-head {
+    grid-template-columns: 1fr;
+  }
+
+  .workspace-head {
+    align-items: start;
+  }
+
+  .example-row {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .workspace {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .workspace {
+    width: 100%;
+  }
+
+  .toolbar {
+    flex-direction: column;
+    align-items: start;
+    gap: 0.9rem;
+  }
+
+  #load-sample {
+    display: inline-flex;
+  }
+
+  .analysis-top {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+}
