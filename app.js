@@ -11,7 +11,18 @@ const fieldDialogTitle = document.querySelector("#field-dialog-title");
 const fieldDialogCopy = document.querySelector("#field-dialog-copy");
 const fieldDialogBody = document.querySelector("#field-dialog-body");
 
-const SAMPLE_EXPRESSION = "*/15 * * * *";
+const SAMPLE_EXPRESSIONS = [
+  "*/5 * * * *",
+  "*/15 * * * *",
+  "0 */2 * * *",
+  "0 9 * * MON-FRI",
+  "15 14 1 * *",
+  "0 18 * * 1,3,5",
+  "30 6 1,15 * *",
+  "0 12 * JAN-MAR MON-FRI",
+  "@daily",
+  "@hourly",
+];
 
 const FIELD_LIMITS = {
   minute: { min: 0, max: 59, names: null },
@@ -139,6 +150,11 @@ function debounce(fn, wait) {
     window.clearTimeout(timeoutId);
     timeoutId = window.setTimeout(() => fn(...args), wait);
   };
+}
+
+function getRandomSampleExpression() {
+  const index = Math.floor(Math.random() * SAMPLE_EXPRESSIONS.length);
+  return SAMPLE_EXPRESSIONS[index];
 }
 
 function parseExpression(rawValue) {
@@ -543,7 +559,7 @@ input.addEventListener("input", debouncedRender);
 copyButton.addEventListener("click", copyInputValue);
 
 sampleButton.addEventListener("click", () => {
-  input.value = SAMPLE_EXPRESSION;
+  input.value = getRandomSampleExpression();
   render();
 });
 
@@ -577,4 +593,5 @@ fieldDialog.addEventListener("click", (event) => {
   }
 });
 
+input.value = getRandomSampleExpression();
 render();
