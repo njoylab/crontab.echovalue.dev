@@ -490,7 +490,7 @@ function render() {
           <span class="status-pill invalid">Invalid</span>
         </div>
         <div class="cron-expression">${escapeHtml(state.expression || input.value.trim())}</div>
-        <h4>Needs attention</h4>
+        <h3>Needs attention</h3>
         <p class="explanation">${escapeHtml(state.error)}</p>
       </article>
     `;
@@ -508,7 +508,7 @@ function render() {
         <span class="status-pill valid">Valid</span>
       </div>
       <div class="cron-expression">${escapeHtml(state.expression)}</div>
-      <h4>${escapeHtml(state.explanation)}</h4>
+      <h3>${escapeHtml(state.explanation)}</h3>
       <p class="explanation">Normalized schedule: <code>${escapeHtml(state.normalized)}</code></p>
       <div class="runs-list">${nextRuns}</div>
     </article>
