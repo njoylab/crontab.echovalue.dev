@@ -180,6 +180,11 @@ code,
   letter-spacing: 0;
 }
 
+.navbar-brand .brand-product {
+  color: var(--ev-color-success);
+  font-weight: 500;
+}
+
 .theme-toggle {
   margin-left: auto;
   margin-right: 0.75rem;
