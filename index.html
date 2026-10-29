@@ -133,12 +133,12 @@
 						<i class="fa-solid fa-moon"></i>
 						<i class="fa-solid fa-sun"></i>
 					</button>
-					<button class="navbar-toggle" type="button" aria-label="Toggle navigation">
+					<button class="navbar-toggle" type="button" aria-label="Toggle navigation" aria-controls="navbar-nav" aria-expanded="false">
 						<span></span>
 						<span></span>
 						<span></span>
 					</button>
-					<ul class="navbar-nav">
+					<ul class="navbar-nav" id="navbar-nav">
 						<li><a href="#cron-basics">Basics</a></li>
 						<li><a href="#faq-title">FAQ</a></li>
 						<li><a href="https://github.com/njoylab/crontab.echovalue.dev" target="_blank" rel="noopener noreferrer">GitHub</a></li>
@@ -217,7 +217,7 @@
 								<p class="section-label">Interpretation</p>
 								<h2>What this schedule means</h2>
 							</div>
-							<div id="analysis-list" class="analysis-list"></div>
+							<div id="analysis-list" class="analysis-list" role="status" aria-live="polite" aria-atomic="true"></div>
 						</section>
 					</div>
 				</section>
@@ -276,7 +276,7 @@
 					</div>
 				</section>
 			</main>
-			<dialog class="field-dialog" id="field-dialog">
+			<dialog class="field-dialog" id="field-dialog" aria-labelledby="field-dialog-title" aria-describedby="field-dialog-copy">
 				<div class="field-dialog-head">
 					<p class="section-label" id="field-dialog-label">Field</p>
 					<button class="dialog-close" id="close-field-dialog" type="button" aria-label="Close dialog">Close</button>
@@ -309,8 +309,8 @@
 			</footer>
 		</div>
 
-		<script src="./assets/js/nav-toggle.js?v=1"></script>
-		<script src="./assets/js/theme-toggle.js?v=1"></script>
-		<script src="./app.js?v=2"></script>
+		<script src="./assets/js/nav-toggle.js?v=2"></script>
+		<script src="./assets/js/theme-toggle.js?v=2"></script>
+		<script type="module" src="./app.js?v=3"></script>
 	</body>
 </html>

@@ -10,7 +10,7 @@
 			document.documentElement.removeAttribute('data-theme');
 		}
 	}
-	apply(stored || (prefersDark ? 'dark' : 'dark'));
+	apply(stored || (prefersDark ? 'dark' : 'light'));
 	btn.addEventListener('click', function () {
 		var current = document.documentElement.getAttribute('data-theme');
 		var next = current === 'light' ? 'dark' : 'light';
